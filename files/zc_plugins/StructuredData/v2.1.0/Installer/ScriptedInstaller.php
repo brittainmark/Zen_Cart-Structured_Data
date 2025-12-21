@@ -6,7 +6,8 @@ declare(strict_types=1);
  * @author: torvista
  * @link: https://github.com/torvista/Zen_Cart-Structured_Data
  * @license https://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version ZenExpert 19 Dec 2025
+ * @version ZenExpert 20 Dec 2025
+ * @version markbrittain 20 Dec 2025
  */
 use Zencart\PluginSupport\ScriptedInstaller as ScriptedInstallBase;
 
@@ -19,6 +20,12 @@ class ScriptedInstaller extends ScriptedInstallBase
     protected int $cgi;
 
     protected string $template_dir;
+
+    public string $pluginKey = 'StructuredData';
+
+    public string $version = '2.1.0';
+
+
 
     /**
      * @return bool
@@ -102,22 +109,22 @@ class ScriptedInstaller extends ScriptedInstallBase
                 ('Default Product Weight', 'PLUGIN_SDATA_DEFAULT_WEIGHT', '0.5', 'If product has no weight defined, use this value.', $this->cgi, 140, null),
 
                 ('Out of Stock Status', 'PLUGIN_SDATA_OOS_DEFAULT', 'BackOrder', 'The default OOS status if a product is out of stock and has no custom field defined for OOS status.', $this->cgi, 145, 'zen_cfg_select_option(array(\'BackOrder\', \'Discontinued\', \'OutOfStock\', \'PreOrder\', \'PreSale\', \'SoldOut\'),'),
-               ('Out of Stock - BackOrder/PreOrder Date', 'PLUGIN_SDATA_OOS_AVAILABILITY_DELAY', '10', 'The OOS BackOrder/PreSales conditions require an availability date.<br>Set the number of days to add to today\'s date, to create a new date.', $this->cgi, 150, null),
+                ('Out of Stock - BackOrder/PreOrder Date', 'PLUGIN_SDATA_OOS_AVAILABILITY_DELAY', '10', 'The OOS BackOrder/PreSales conditions require an availability date.<br>Set the number of days to add to today\'s date, to create a new date.', $this->cgi, 150, null),
 
-               ('Limit - Product Name', 'PLUGIN_SDATA_MAX_NAME', '150', 'The maximum number of characters allowed in a product name.<br>Google permits up to 150.', $this->cgi, 170, null),
-               ('Limit - Product Description', 'PLUGIN_SDATA_MAX_DESCRIPTION', '5000', 'The maximum number of characters allowed in a product description.<br>Google permits up to 5000.', $this->cgi, 175, null),
+                ('Limit - Product Name', 'PLUGIN_SDATA_MAX_NAME', '150', 'The maximum number of characters allowed in a product name.<br>Google permits up to 150.', $this->cgi, 170, null),
+                ('Limit - Product Description', 'PLUGIN_SDATA_MAX_DESCRIPTION', '5000', 'The maximum number of characters allowed in a product description.<br>Google permits up to 5000.', $this->cgi, 175, null),
 
-               ('Reviews - Default Review Date', 'PLUGIN_SDATA_REVIEW_DEFAULT_DATE', '2020-09-23 13:48:39', 'In the case of a review having no date set (null), use this date.', $this->cgi, 180, null),
+                ('Reviews - Default Review Date', 'PLUGIN_SDATA_REVIEW_DEFAULT_DATE', '2020-09-23 13:48:39', 'In the case of a review having no date set (null), use this date.', $this->cgi, 180, null),
                 ('No Review - Add One?', 'PLUGIN_SDATA_REVIEW_USE_DEFAULT', 'true', 'If a product has no reviews, use a default value/dummy review to prevent Google Tool warnings.', $this->cgi, 185, null),
                 ('No Review - Average Rating', 'PLUGIN_SDATA_REVIEW_DEFAULT_VALUE', '4', 'Average rating for the default review (1-5).', $this->cgi, 190, null),
 
-               ('Returns - Policy', 'PLUGIN_SDATA_RETURNS_POLICY', 'Finite', 'The type of return policy.', $this->cgi, 250, 'zen_cfg_select_option(array(\'Finite\', \'NotPermitted\', \'Unlimited\'),'),
-               ('Returns - Days', 'PLUGIN_SDATA_RETURNS_DAYS', '14', 'In the case of the Finite return policy, the period (days limit) during which the product can be returned.', $this->cgi, 255, null),
-               ('Returns - Methods', 'PLUGIN_SDATA_RETURNS_METHOD', 'Mail', 'In the case of the Finite/Unlimited return policies, the method of returning the product.', $this->cgi, 260, 'zen_cfg_select_option(array(\'Kiosk\', \'Mail\', \'Store\'),'),
-               ('Returns - Type', 'PLUGIN_SDATA_RETURNS_TYPE', 'FreeReturn', 'The type of fee for returns.', $this->cgi, 265, 'zen_cfg_select_option(array(\'FreeReturn\', \'OriginalShippingFees\', \'RestockingFees\', \'ReturnFeesCustomerResponsibility\', \' ReturnShippingFees\'),'),
-               ('Returns - Fee', 'PLUGIN_SDATA_RETURNS_FEE', '0', 'The charge to the customer for returning the product. You can enter a fixed amount or percentage. If you add percentage, the value will be calculated as percentage of the item price.', $this->cgi, 270, null),
-               ('Returns - Applicable Country', 'PLUGIN_SDATA_RETURNS_APPLICABLE_COUNTRY', '', 'The country in which the returns policy is applicable (2-char ISO e.g. ES) For worldwide, enter **.', $this->cgi, 275, null),
-               ('Returns - Returns Country', 'PLUGIN_SDATA_RETURNS_POLICY_COUNTRY', '', 'The country to which the product must be returned (2-char ISO e.g. ES).', $this->cgi, 280, null),
+                ('Returns - Policy', 'PLUGIN_SDATA_RETURNS_POLICY', 'Finite', 'The type of return policy.', $this->cgi, 250, 'zen_cfg_select_option(array(\'Finite\', \'NotPermitted\', \'Unlimited\'),'),
+                ('Returns - Days', 'PLUGIN_SDATA_RETURNS_DAYS', '14', 'In the case of the Finite return policy, the period (days limit) during which the product can be returned.', $this->cgi, 255, null),
+                ('Returns - Methods', 'PLUGIN_SDATA_RETURNS_METHOD', 'Mail', 'In the case of the Finite/Unlimited return policies, the method of returning the product.', $this->cgi, 260, 'zen_cfg_select_option(array(\'Kiosk\', \'Mail\', \'Store\'),'),
+                ('Returns - Type', 'PLUGIN_SDATA_RETURNS_TYPE', 'FreeReturn', 'The type of fee for returns.', $this->cgi, 265, 'zen_cfg_select_option(array(\'FreeReturn\', \'OriginalShippingFees\', \'RestockingFees\', \'ReturnFeesCustomerResponsibility\', \' ReturnShippingFees\'),'),
+                ('Returns - Fee', 'PLUGIN_SDATA_RETURNS_FEE', '0', 'The charge to the customer for returning the product. You can enter a fixed amount or percentage. If you add percentage, the value will be calculated as percentage of the item price.', $this->cgi, 270, null),
+                ('Returns - Applicable Country', 'PLUGIN_SDATA_RETURNS_APPLICABLE_COUNTRY', '', 'The country in which the returns policy is applicable (2-char ISO e.g. ES) For worldwide, enter **.', $this->cgi, 275, null),
+                ('Returns - Returns Country', 'PLUGIN_SDATA_RETURNS_POLICY_COUNTRY', '', 'The country to which the product must be returned (2-char ISO e.g. ES).', $this->cgi, 280, null),
 
                 ('Custom Product Field - Google Product Category', 'PLUGIN_SDATA_GPC_FIELD', 'products_google_product_category', 'The name of the custom field used in the <strong>products</strong> table for the Google Product Category.', $this->cgi, 285, null),
                 ('Custom Product Field - GTIN', 'PLUGIN_SDATA_GTIN_FIELD', 'products_gtin', 'The name of the custom field used in the <strong>products</strong> table for the product-specific code GTIN (EAN, ISBN etc.).', $this->cgi, 290, null),
@@ -145,6 +152,91 @@ class ScriptedInstaller extends ScriptedInstallBase
             zen_register_admin_page($this->configPageKey, 'BOX_CONFIGURATION_STRUCTURED_DATA', 'FILENAME_CONFIGURATION', "gID=$this->cgi", 'configuration', 'Y');
         }
 
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function executeUpgrade($oldVersion) {
+        $this->cgi = $this->getOrCreateConfigGroupId($this->configGroupTitle, $this->configGroupTitle, null);
+        switch ($oldVersion) {
+            case "v2.0.0":
+                // Add new values
+                $this->executeInstallerSql("INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
+                    (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function)
+                VALUES
+
+                ('Organisation Type', 'PLUGIN_SDATA_ORGANIZATION_TYPE', 'Organization', 'If you have a physical store and want to specify it, choose LocalBusiness instead of the generic Organization.', $this->cgi, 8, 'zen_cfg_select_option(array(\'Organization\', \'LocalBusiness\', \'OnlineBusiness\'),'),
+
+                ('LocalBusiness Type', 'PLUGIN_SDATA_LOCAL_BUSINESS_TYPE', 'Store', 'This option is used ONLY if Organization Type is set to LocalBusiness. The list is not complete because there is a large number of options. Choose the one that fits best, or choose Store as a generic option.', $this->cgi, 9, 'zen_cfg_select_option(array(\'Store\', \'ShoppingCenter\', \'BikeStore\', \'BookStore\', \'ClothingStore\', \'ComputerStore\', \'ConvenienceStore\', \'DepartmentStore\', \'ElectronicsStore\', \'Florist\', \'FurnitureStore\', \'GardenStore\', \'GroceryStore\', \'HardwareStore\', \'HobbyShop\', \'HomeGoodsStore\', \'JewelryStore\', \'LiquorStore\', \'MensClothingStore\', \'MobilePhoneStore\', \'MovieRentalStore\', \'MusicStore\', \'OfficeEquipmentStore\', \'OutletStore\', \'PawnShop\', \'PetStore\', \'ShoeStore\', \'SportingGoodsStore\', \'TireShop\', \'ToyStore\', \'WholesaleStore\'),'),
+
+                ('Name (Schema)', 'PLUGIN_SDATA_LOCAL_BUSINESS_NAME', '', 'If you chose LocalBusiness, enter the name (this can be different than your Legal Name).', $this->cgi, 20, null),
+                ('Short Description (Schema)', 'PLUGIN_SDATA_DESCRIPTION', '', 'Enter a short description of your business.', $this->cgi, 21, null),
+                ('Property Image (Schema)', 'PLUGIN_SDATA_PROPERTY_IMAGE', '', 'If you selected LocalBusiness as your Business Type, you must include a photo of your storefront or building entrance to help customers find you. Best practice is to include 3 photos in different dimensions (1x1, 4x3, 16x9). Example: https://example.com/photos/1x1/photo.jpg, https://example.com/photos/4x3/photo.jpg, https://example.com/photos/16x9/photo.jpg', $this->cgi, 25, null),
+
+                ('Price Range (Schema)', 'PLUGIN_SDATA_PRICE_RANGE', '', 'Use currency symbols to indicate your price range. The standard is a scale from 1 to 4, where 1 stands for inexpensive, 2 for moderate/average, 3 for expensive and 4 means luxury. Example: $$.', $this->cgi, 31, null),
+
+                ('Area Served (Schema-Customer Service, optional)', 'PLUGIN_SDATA_AREA_SERVED', '', 'The geographical region served (<a href=\"https://schema.org/areaServed\" target=\"_blank\">further details here</a>).<br>If omitted, the area is assumed to be global.)', $this->cgi, 85, null),
+
+                ('Hours Available (Schema-Customer Service, optional)', 'PLUGIN_SDATA_HOURS', '', 'Customer service working hours (<a href=\"https://schema.org/hoursAvailable\" target=\"_blank\">further details here</a>).<br>If omitted, it will be skipped.)<br>Supports simple and complex scenarios.<br><strong>REQUIREMENTS:</strong> days are listed first, using 3-letter English abbreviation and separated with a comma. Semicolon is used as delimiter between days and times. Times are entered in 24-hour format with a minus indicating range. Split shifts are separated with a comma. Different rules are separated with a pipe.<br>Examples:<br><strong>Simple:</strong> Mon,Tue,Wed,Thu,Fri;09:00-17:00<br><strong>Weekend different:</strong> Mon,Tue,Wed,Thu,Fri;09:00-17:00|Sat;10:00-14:00<br><strong>Split Shift (Lunch break):</strong> Mon,Tue,Wed,Thu,Fri;09:00-12:00,13:00-17:00<br><strong>Complex:</strong> Mon,Wed,Fri;09:00-17:00|Tue,Thu;09:00-12:00,13:00-17:00|Sat;10:00-12:00', $this->cgi, 90, null),
+
+                ('Returns - Type', 'PLUGIN_SDATA_RETURNS_TYPE', 'FreeReturn', 'The type of fee for returns.', $this->cgi, 265, 'zen_cfg_select_option(array(\'FreeReturn\', \'OriginalShippingFees\', \'RestockingFees\', \'ReturnFeesCustomerResponsibility\', \' ReturnShippingFees\'),')
+                ");
+
+                // Update Sort order
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 95 WHERE configuration_key = 'PLUGIN_SDATA_ACCEPTED_PAYMENT_METHODS'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 15 WHERE configuration_key = 'PLUGIN_SDATA_LEGAL_NAME'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 16 WHERE configuration_key = 'PLUGIN_SDATA_DUNS'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 30 WHERE configuration_key = 'PLUGIN_SDATA_LOGO'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 35 WHERE configuration_key = 'PLUGIN_SDATA_STREET_ADDRESS'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 40 WHERE configuration_key = 'PLUGIN_SDATA_LOCALITY'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 45 WHERE configuration_key = 'PLUGIN_SDATA_REGION'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 50 WHERE configuration_key = 'PLUGIN_SDATA_POSTALCODE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 55 WHERE configuration_key = 'PLUGIN_SDATA_COUNTRYNAME'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 60 WHERE configuration_key = 'PLUGIN_SDATA_EMAIL'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 65 WHERE configuration_key = 'PLUGIN_SDATA_TELEPHONE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 70 WHERE configuration_key = 'PLUGIN_SDATA_FAX'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 75 WHERE configuration_key = 'PLUGIN_SDATA_AVAILABLE_LANGUAGE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 80 WHERE configuration_key = 'PLUGIN_SDATA_FOG_LOCALES'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 100 WHERE configuration_key = 'PLUGIN_SDATA_TAXID'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 105 WHERE configuration_key = 'PLUGIN_SDATA_VATID'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 110 WHERE configuration_key = 'PLUGIN_SDATA_SAMEAS'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 115 WHERE configuration_key = 'PLUGIN_SDATA_ELIGIBLE_REGION'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 120 WHERE configuration_key = 'PLUGIN_SDATA_PRICE_CURRENCY'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 125 WHERE configuration_key = 'PLUGIN_SDATA_DELIVERYLEADTIME'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 130 WHERE configuration_key = 'PLUGIN_SDATA_DELIVERYLEADTIME_OOS'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 135 WHERE configuration_key = 'PLUGIN_SDATA_FOG_PRODUCT_CONDITION'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 140 WHERE configuration_key = 'PLUGIN_SDATA_DEFAULT_WEIGHT'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 145 WHERE configuration_key = 'PLUGIN_SDATA_OOS_DEFAULT'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 150 WHERE configuration_key = 'PLUGIN_SDATA_OOS_AVAILABILITY_DELAY'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 170 WHERE configuration_key = 'PLUGIN_SDATA_MAX_NAME'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 175 WHERE configuration_key = 'PLUGIN_SDATA_MAX_DESCRIPTION'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 180 WHERE configuration_key = 'PLUGIN_SDATA_REVIEW_DEFAULT_DATE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 185 WHERE configuration_key = 'PLUGIN_SDATA_REVIEW_USE_DEFAULT'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 190 WHERE configuration_key = 'PLUGIN_SDATA_REVIEW_DEFAULT_VALUE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 250 WHERE configuration_key = 'PLUGIN_SDATA_RETURNS_POLICY'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 255 WHERE configuration_key = 'PLUGIN_SDATA_RETURNS_DAYS'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 260 WHERE configuration_key = 'PLUGIN_SDATA_RETURNS_METHOD'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 280 WHERE configuration_key = 'PLUGIN_SDATA_RETURNS_POLICY_COUNTRY'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 285 WHERE configuration_key = 'PLUGIN_SDATA_GPC_FIELD'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 290 WHERE configuration_key = 'PLUGIN_SDATA_GTIN_FIELD'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 295 WHERE configuration_key = 'PLUGIN_SDATA_POS_GTIN_FIELD'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 300 WHERE configuration_key = 'PLUGIN_SDATA_POS_MPN_FIELD'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 350 WHERE configuration_key = 'PLUGIN_SDATA_FOG_DEFAULT_PRODUCT_IMAGE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 355 WHERE configuration_key = 'PLUGIN_SDATA_FOG_DEFAULT_IMAGE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 360 WHERE configuration_key = 'PLUGIN_SDATA_FOG_TYPE_SITE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 365 WHERE configuration_key = 'PLUGIN_SDATA_FOG_TYPE_PRODUCT'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 370 WHERE configuration_key = 'PLUGIN_SDATA_TWITTER_DEFAULT_IMAGE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 375 WHERE configuration_key = 'PLUGIN_SDATA_TWITTER_USERNAME'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 380 WHERE configuration_key = 'PLUGIN_SDATA_TWITTER_PAGE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 385 WHERE configuration_key = 'PLUGIN_SDATA_GOOGLE_PUBLISHER'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET sort_order = 390 WHERE configuration_key = 'PLUGIN_SDATA_GOOGLE_PRODUCT_CATEGORY'");
+                // Update Sort order and description
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET configuration_description = 'The charge to the customer for returning the product. You can enter a fixed amount or percentage. If you add percentage, the value will be calculated as percentage of the item price.', sort_order = 270 WHERE configuration_key = 'PLUGIN_SDATA_RETURNS_FEE'");
+                $this->executeInstallerSql("UPDATE " . TABLE_CONFIGURATION . " SET configuration_description = 'The country in which the returns policy is applicable (2-char ISO e.g. ES) For worldwide, enter **.', sort_order = 275 WHERE configuration_key = 'PLUGIN_SDATA_RETURNS_APPLICABLE_COUNTRY'");
+                break;
+        }
         return true;
     }
 

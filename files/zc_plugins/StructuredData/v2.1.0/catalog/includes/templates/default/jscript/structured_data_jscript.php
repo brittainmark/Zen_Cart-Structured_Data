@@ -8,7 +8,8 @@ declare(strict_types=1);
  * @author: torvista
  * @link: https://github.com/torvista/Zen_Cart-Structured_Data
  * @license https://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version structured_data_jscript.php ZenExpert 19 Dec 2025
+ * @version structured_data_jscript.php ZenExpert 20 Dec 2025
+ * @version markbrittain 20 Dec 2025
  */
 /** directives for phpStorm code inspector
  * @var breadcrumb $breadcrumb
@@ -204,7 +205,7 @@ $is_product_page = (
 // for a product page only
 if ($is_product_page && (isset($product_info) && is_object($product_info))) {
     $product_id = (int)$product_info->fields['products_id'];
-    $product_name = sdata_prepare_string($product_info->fields['lang'][$language['code']]['products_name']);
+    $product_name = sdata_prepare_string($product_info->fields['lang'][$language['code']]['products_name'] ?? $product_info->fields['products_name']);
     // Use a function instead of $product_info so the notifier in function gets parsed
     $description = zen_get_products_description($product_id);
     $description = sdata_prepare_string($description);
@@ -764,7 +765,7 @@ if (!empty(PLUGIN_SDATA_RETURNS_POLICY_COUNTRY)) {
         <?php } ?>
         "url": "<?= HTTP_SERVER; //root website ?>",
      "logo": "<?= PLUGIN_SDATA_LOGO ?>",
-        <?php echo (PLUGIN_SDATA_PRICE_RANGE !== '' ? '"priceRange": "'. PLUGIN_SDATA_PRICE_RANGE .'",' : '');  ?><?= PHP_EOL ?>
+        <?php echo ((PLUGIN_SDATA_ORGANIZATION_TYPE === 'LocalBusiness' && PLUGIN_SDATA_PRICE_RANGE !== '') ? '"priceRange": "'. PLUGIN_SDATA_PRICE_RANGE .'",' : '');  ?><?= PHP_EOL ?>
         "contactPoint" : [{
               "@type" : "ContactPoint",
           "telephone" : "<?= PLUGIN_SDATA_TELEPHONE ?>",
