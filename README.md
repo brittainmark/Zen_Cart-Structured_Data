@@ -1,4 +1,4 @@
-# Structured Data for Zen Cart
+# Structured Data for Zen Cart v2.1.0
 Tested on Zen Cart 2.1.0+ on php 8+
 
 Encapsulated Plugin that adds Schema (in JSON-LD format), Facebook and Twitter structured markup to all pages.
@@ -330,3 +330,4 @@ https://www.zen-cart.com/downloads.php?do=file&id=1984
 
 2014 Zen Cart - Facebook Open Graph - Numinix
 https://www.zen-cart.com/downloads.php?do=file&id=1820
+
