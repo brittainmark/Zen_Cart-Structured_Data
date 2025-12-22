@@ -156,9 +156,11 @@ class ScriptedInstaller extends ScriptedInstallBase
     }
 
     /**
+     * @param $oldVersion
      * @return bool
      */
-    protected function executeUpgrade($oldVersion) {
+    protected function executeUpgrade($oldVersion): bool
+    {
         $this->cgi = $this->getOrCreateConfigGroupId($this->configGroupTitle, $this->configGroupTitle, null);
         switch ($oldVersion) {
             case "v2.0.0":

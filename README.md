@@ -246,7 +246,19 @@ maximum size: approx. 1MB.
 "recommended" dimensions by users: 600x321 (1.867:1)
 
 ## Changelog
-See the commit history for subsequent changes.
+See the commit history for all details.
+
+2025 02 19 - zenExpert v2.10  
+Fields added:  
+- LocalBusiness
+- Business Type
+- Business Name
+- Description
+- Property Image
+- Price Range
+- Area Served
+- Business Hours
+- Returns Type
 
 2025 02 19 - Convert to an encapsulated plugin, fix for breadcrumb containing quotes, update of install and spreadsheet with script-based additional constants.
 

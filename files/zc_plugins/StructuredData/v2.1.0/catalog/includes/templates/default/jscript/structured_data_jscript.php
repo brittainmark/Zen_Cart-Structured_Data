@@ -60,7 +60,7 @@ $returnPolicyCategory = [
     'Finite' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
     'NotPermitted' => 'https://schema.org/MerchantReturnNotPermitted',
     'Unlimited' => 'https://schema.org/MerchantReturnUnlimitedWindow',
-    //'none' => 'https://schema.org/MerchantReturnUnspecified' // 'this Schema option is not supported by Google
+    //'none' => 'https://schema.org/MerchantReturnUnspecified' // this Schema option is not supported by Google
 ];
 // used only with 'finite' and 'unlimited'
 $returnMethod = [
@@ -469,7 +469,7 @@ if ($is_product_page && (isset($product_info) && is_object($product_info))) {
     // BOF ZenExpert: capture product listing data
     global $listing_sql;
 
-    if (isset($listing_sql) && !empty($listing_sql) && defined('MAX_DISPLAY_PRODUCTS_LISTING')) {
+    if (!empty($listing_sql) && defined('MAX_DISPLAY_PRODUCTS_LISTING')) {
         $listing_page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
         $listing_limit = (int)MAX_DISPLAY_PRODUCTS_LISTING;
         $listing_offset = ($listing_page - 1) * $listing_limit;
@@ -496,7 +496,7 @@ if ($is_product_page && (isset($product_info) && is_object($product_info))) {
                     ? HTTP_SERVER . DIR_WS_CATALOG . DIR_WS_IMAGES . $prod_image
                     : $image_default_facebook;
 
-                $p_name = isset($item['products_name']) ? $item['products_name'] : zen_get_products_name((int)$item['products_id']);
+                $p_name = $item['products_name'] ?? zen_get_products_name((int)$item['products_id']);
 
                 $listing_schema[] = [
                     '@type' => 'ListItem',
@@ -694,7 +694,7 @@ if (!empty(PLUGIN_SDATA_RETURNS_POLICY_COUNTRY)) {
     // Handle "RestockingFees" (Percentage or Fixed)
     if ($rType === 'RestockingFees') {
         // Check for percentage
-        if (strpos($rFeeVal, '%') !== false) {
+        if (str_contains($rFeeVal, '%')) {
             // It is a percentage (e.g. "20%")
             $policyData['description'] = "A restocking fee of " . $rFeeVal . " applies to returned items.";
 
@@ -751,7 +751,7 @@ if (!empty(PLUGIN_SDATA_RETURNS_POLICY_COUNTRY)) {
         <?php if(PLUGIN_SDATA_ORGANIZATION_TYPE === 'LocalBusiness' && PLUGIN_SDATA_PROPERTY_IMAGE !== '') {
             $photo = trim(PLUGIN_SDATA_PROPERTY_IMAGE);
             // If multiple URLs separated by commas, convert to array and output JSON array.
-            if (strpos($photo, ',') !== false) {
+            if (str_contains($photo, ',')) {
                 $photos = array_map('trim', explode(',', $photo));
                 $image_json = json_encode($photos, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
                 echo '     "image": ' . $image_json . ',' . PHP_EOL;
@@ -946,7 +946,7 @@ if (!empty(PLUGIN_SDATA_RETURNS_POLICY_COUNTRY)) {
             } ?>
             "brand": {
                     "@type" : "Brand",
-                     "name" : "<?= json_encode_sdata((isset($manufacturer_name) && trim((string)$manufacturer_name) !== '') ? $manufacturer_name : (defined('STORE_NAME') ? STORE_NAME : '')) ?>"
+                     "name" : "<?= json_encode_sdata((isset($manufacturer_name) && trim($manufacturer_name) !== '') ? $manufacturer_name : (defined('STORE_NAME') ? STORE_NAME : '')) ?>"
                 },
              "category" : "<?= json_encode_sdata($category_name) // impossible to find conclusive information on this, but it is NOT google_product_category number/it must be text ?>",
             <?php if ($product_attributes) {// There is some field duplication between attributes, default and simple product...but having the [ around the multiple offers when attributes-stock is handled complicates the code so leave separate for easier maintenance. Need to test on all three scenarios: simple (no attributes) / attributes - Zen Cart default / attributes - stock handled by 3rd-party plugin
