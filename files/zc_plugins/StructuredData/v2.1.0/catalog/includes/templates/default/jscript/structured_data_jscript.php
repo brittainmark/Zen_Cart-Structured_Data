@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @link: https://github.com/torvista/Zen_Cart-Structured_Data
  * @license https://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version structured_data_jscript.php ZenExpert 20 Dec 2025
- * @version markbrittain 20 Dec 2025
+ * @version markbrittain 15 Jan 2026
  */
 /** directives for phpStorm code inspector
  * @var breadcrumb $breadcrumb
@@ -237,7 +237,7 @@ if ($is_product_page && (isset($product_info) && is_object($product_info))) {
     $product_base_sku = $product_info->fields['products_model'];
 
     // MPN: Manufacturers Product Number
-    $product_base_mpn = $product_info->fields['products_mpn'];
+    $product_base_mpn = $product_info->fields['products_mpn'] ?? '';
 
     // Google Product Category
     // A field for Google Product Category needs to be added to the product table unless all products are under the same category.
