@@ -1367,8 +1367,7 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
 
         // add product name to webpage schema
         $webPageSchema['about'] = [
-            '@type' => 'Product',
-            'name' => sdata_truncate($product_name, PLUGIN_SDATA_MAX_NAME)
+            "@id" => htmlspecialchars_decode($canonicalLink)
         ];
     } //eof Product Schema
 // output web page schema
