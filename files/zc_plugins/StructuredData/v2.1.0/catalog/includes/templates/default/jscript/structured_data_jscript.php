@@ -938,7 +938,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
 
     $schema = sdata_clean_schema($schema);
 ?>
-<script title="Structured Data: schemaOrganisation" type="application/ld+json">
+<!-- Structured Data: schemaOrganisation" -->
+<script type="application/ld+json">
 <?= json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL; ?>
 </script>
 <?php
@@ -994,7 +995,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
             ];
         }
 ?>
-<script title="Structured Data: schemaBreadcrumb" type="application/ld+json">
+<!-- Structured Data: schemaBreadcrumb -->
+<script type="application/ld+json">
 <?= json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL; ?>
 </script>
 <?php
@@ -1039,7 +1041,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
 
         $contactSchema = sdata_clean_schema($contactSchema);
 ?>
-<script title="Structured Data: schemaContactPage" type="application/ld+json">
+<!-- Structured Data: schemaContactPage -->
+<script type="application/ld+json">
 <?= json_encode($contactSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL; ?>
 </script>
 <?php
@@ -1068,7 +1071,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
         // Remove empty schema entries
         $itemListSchema = sdata_clean_schema($itemListSchema);
 ?>
-<script title="Structured Data: schemaItemList" type="application/ld+json">
+<!-- Structured Data: schemaItemList -->
+<script type="application/ld+json">
 <?= json_encode($itemListSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL; ?>
 </script>
 <?php
@@ -1101,7 +1105,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
                 ]
             ]
 ?>
-<script title="Structured Data: schemaWebSite" type="application/ld+json">
+<!-- Structured Data: schemaWebSite -->
+<script type="application/ld+json">
 <?= json_encode($webSiteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL; ?>
 </script>
 <?php
@@ -1360,7 +1365,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
         // Remove empty schema entries
         $productSchema = sdata_clean_schema($productSchema);
 ?>
-<script title="Structured Data: schemaProduct" type="application/ld+json">
+<!-- Structured Data: schemaProduct -->
+<script type="application/ld+json">
 <?= json_encode($productSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL; ?>
 </script>
 <?php
@@ -1372,7 +1378,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
     } //eof Product Schema
 // output web page schema
 ?>
-<script title="Structured Data: schemaWebPage" type="application/ld+json">
+<!-- Structured Data: schemaWebPage -->
+<script type="application/ld+json">
 <?= json_encode($webPageSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL; ?>
 </script>
 <?php
