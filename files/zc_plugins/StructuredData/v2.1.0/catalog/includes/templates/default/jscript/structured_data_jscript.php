@@ -1118,8 +1118,8 @@ if (PLUGIN_SDATA_SCHEMA_ENABLE === 'true') {
 
 // eof Create web page schema
 
-// Product schema for product pages
-    if ($page_type === 'product') {
+// Product schema for product pages. Only display if valid product!
+    if ($page_type === 'product' && (int)$product_info->fields['products_status'] === 1) {
 
         // Base Product schema
         $productSchema = [
